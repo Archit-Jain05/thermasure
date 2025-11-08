@@ -6,10 +6,12 @@
 #define DHTPIN 15        // DHT11 connected to GPIO15 (D15)
 #define DHTTYPE DHT11
 #define LED_PIN 14       // LED connected to GPIO14 (D14)
+#define LED_PIN2 32
+#define LED_PIN3 34
 
 // --- WiFi Credentials ---
-const char* ssid = "Vaghani_EXT";
-const char* password = "20052008";
+const char* ssid = "Galaxy S25 Ultra";
+const char* password = "7710990629";
 
 // --- ThingSpeak Configuration ---
 const char* server = "http://api.thingspeak.com/update";
@@ -19,7 +21,10 @@ DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
   Serial.begin(115200);
+  digitalWrite(LED_PIN3, HIGH);
   pinMode(LED_PIN, OUTPUT);
+  pinMode(LED_PIN2, OUTPUT);
+  pinMode(LED_PIN3, OUTPUT);
   dht.begin();
 
   Serial.println("Connecting to WiFi...");
@@ -28,18 +33,20 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    
   }
 
   Serial.println("\n✅ WiFi Connected!");
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
   Serial.println("Starting DHT11 sensor...");
+  digitalWrite(LED_PIN2, HIGH);
 }
 
 void loop() {
   // Blink LED to indicate loop cycle
   digitalWrite(LED_PIN, HIGH);
-  delay(200);
+  delay(500);
   digitalWrite(LED_PIN, LOW);
 
   // Read DHT11 Sensor
